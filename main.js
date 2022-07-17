@@ -60,7 +60,6 @@ function playRound(playerSelection, computerSelection)
 
 function incrementPoints(winner, points)
 {
-  console.log(points[0]);
   if(winner === "Player")
     points[0]++;
   else if(winner === "Computer")
@@ -76,6 +75,30 @@ function getWinner(points)
     return "Computer";
 }
 
+function getPlayerChoice(choices)
+{
+  let validChoice = false;
+  let inputAttempts = 0;
+  let choice;
+
+  while(validChoice === false)
+  {
+    choice = prompt("Enter your choice: ");
+    inputAttempts++;
+
+    // validate input
+    choice = choice.toLowerCase();
+    if(choice === "rock" || choice === "paper" || choice === "scissors")
+      validChoice = true;
+    else
+      console.log("Please choose one of the following options: Rock, Paper, or Scissors");
+    
+      if(inputAttempts === 3)
+        return null;
+  }
+  return choice;
+}
+
 function game()
 {
   const choices = ["Rock", "Paper", "Scissors"];
@@ -87,10 +110,18 @@ function game()
 
   while(/*player*/points[0] < 3 && /*computer*/points[1] < 3)
   {
-    playerSelection = prompt("Enter your choice: ");
-    computerSelection = getComputerChoice(choices);
-    roundWinner = playRound(playerSelection, computerSelection);
-    incrementPoints()
+    playerSelection = getPlayerChoice(choices);
+    if(playerSelection != null)
+    {
+      computerSelection = getComputerChoice(choices);
+      roundWinner = playRound(playerSelection, computerSelection);
+    }
+    else
+    {
+      roundWinner = "Computer";
+      console.log("You have failed to input a choice 3 times, therefore the Computer wins this round by default!")
+    }
+    incrementPoints(roundWinner, points);
   }
 
   gameWinner = getWinner(points);
