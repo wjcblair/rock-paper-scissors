@@ -108,8 +108,8 @@ function game()
   let gameWinner;
   let points = [0, 0];
 
-  while(/*player*/points[0] < 3 && /*computer*/points[1] < 3)
-  {
+  //while(/*player*/points[0] < 3 && /*computer*/points[1] < 3)
+  //{
     playerSelection = getPlayerChoice(choices);
     if(playerSelection != null)
     {
@@ -122,7 +122,7 @@ function game()
       console.log("You have failed to input a choice 3 times, therefore the Computer wins this round by default!")
     }
     incrementPoints(roundWinner, points);
-  }
+  //}
 
   gameWinner = getWinner(points);
   console.log("The " + gameWinner + " wins!");
